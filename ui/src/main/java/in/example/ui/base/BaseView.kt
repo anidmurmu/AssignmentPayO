@@ -17,8 +17,6 @@ interface BaseView {
 
     fun hideInternetError()
 
-    //fun showServerError(errorCode: String, userId: String, versionCode: String)
-
     fun hideServerError()
 
     fun isViewAvailable(): Boolean

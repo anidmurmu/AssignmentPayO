@@ -1,2 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.example.data" />
+    package="in.example.data" >
+    <uses-permission android:name="android.permission.READ_SMS"/>
+</manifest>

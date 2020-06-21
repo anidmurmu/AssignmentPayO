@@ -13,7 +13,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 
-const val REQUEST_ID_MULTIPLE_PERMISSIONS = 1
+const val REQUEST_SMS_PERMISSION = 1
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 
@@ -59,22 +59,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun isViewInteractive() = isViewInteractive
 
-    fun getDisplayMetrics(): DisplayMetrics {
-        val display = windowManager.defaultDisplay
-        val metrics = DisplayMetrics()
-        display.getMetrics(metrics)
-        return metrics
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        /*observerViews?.let {
-            for (observer in it) {
-                observer.onSaveInstanceState(outState)
-            }
-        }*/
-    }
-
     override fun onStart() {
         super.onStart()
         isViewInteractive = true
@@ -101,59 +85,18 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     fun checkAppSyncRequestPermissions(shouldRequestPermissions: Boolean = true): Boolean {
-        val readPhoneStatePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-        val accessLocationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-        val readContactsPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-        /*val readSMSPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)*/
-        /*val receiveSMSPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)*/
-        val accessFineLocationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        val receiveBootCompletedPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED)
-        /*val accountsPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS)*/
-        val callPhonePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+        val readSMSPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
 
         val listPermissionsNeeded = ArrayList<String>()
 
-        if (readPhoneStatePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE)
-        }
-        if (accessLocationPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        }
-        if (readContactsPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.READ_CONTACTS)
-        }
-
-        /*if (readSMSPermission != PackageManager.PERMISSION_GRANTED) {
+        if (readSMSPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.READ_SMS)
-        }*/
-
-        /*if (receiveSMSPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.RECEIVE_SMS)
-        }*/
-        if (accessFineLocationPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
-        if (receiveBootCompletedPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.RECEIVE_BOOT_COMPLETED)
-        }
-
-/*        if (accountsPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.GET_ACCOUNTS)
-        }*/
-/*
-        if (readCalendarPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.READ_CALENDAR)
-        }
-*/
-
-        if (callPhonePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.CALL_PHONE)
         }
 
         if (shouldRequestPermissions) {
             if (listPermissionsNeeded.isNotEmpty()) {
                 ActivityCompat.requestPermissions(this, listPermissionsNeeded.toTypedArray(),
-                        REQUEST_ID_MULTIPLE_PERMISSIONS
+                        REQUEST_SMS_PERMISSION
                 )
             }
         }
@@ -162,16 +105,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     fun checkAppSyncPermissionsProvidedStatus(permissions: Array<String>, grantResults: IntArray): Boolean {
         val perms = mutableMapOf<String, Int>()
-        perms[Manifest.permission.READ_PHONE_STATE] = PackageManager.PERMISSION_GRANTED
-        perms[Manifest.permission.ACCESS_COARSE_LOCATION] = PackageManager.PERMISSION_GRANTED
-        perms[Manifest.permission.READ_CONTACTS] = PackageManager.PERMISSION_GRANTED
-        /*perms[Manifest.permission.READ_SMS] = PackageManager.PERMISSION_GRANTED*/
-        /*perms[Manifest.permission.RECEIVE_SMS] = PackageManager.PERMISSION_GRANTED*/
-        perms[Manifest.permission.ACCESS_FINE_LOCATION] = PackageManager.PERMISSION_GRANTED
-        perms[Manifest.permission.RECEIVE_BOOT_COMPLETED] = PackageManager.PERMISSION_GRANTED
-//        perms[Manifest.permission.GET_ACCOUNTS] = PackageManager.PERMISSION_GRANTED
-//        perms[Manifest.permission.READ_CALENDAR] = PackageManager.PERMISSION_GRANTED
-        perms[Manifest.permission.CALL_PHONE] = PackageManager.PERMISSION_GRANTED
+        perms[Manifest.permission.READ_SMS] = PackageManager.PERMISSION_GRANTED
 
         if (grantResults.isNotEmpty()) {
             for (i in permissions.indices)
@@ -179,6 +113,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
             var allPermissionsAdded = true
 
+            //check if all entries in the map has permissions granted.
             for (o in perms.entries) {
                 val pair = o as Map.Entry<*, *>
                 allPermissionsAdded = allPermissionsAdded && pair.value as Int == PackageManager.PERMISSION_GRANTED
@@ -188,10 +123,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
 
         return false
-    }
-
-    interface AppSyncStatusCallBack {
-        fun updateCustomerLogStatus()
     }
 
     override fun showInternetError() {
@@ -210,25 +141,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun hideInternetError() {
         dynamicViewHandler?.hide()
     }
-
-    /*override fun showServerError(errorCode: String, userId: String, versionCode: String) {
-        if (dynamicViewHandler == null) {
-            dynamicViewHandler = DynamicViewHandler(this)
-        }
-        val view = dynamicViewHandler!!.show(R.layout.layout_server_error)
-        val params = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT)
-        params.setMargins(0, 0, 0, 0)
-        view.layoutParams = params
-        val errorCodeText = view.findViewById(R.id.errorCode) as BaseTextView
-        val userIdText = view.findViewById(R.id.userId) as BaseTextView
-        val versionCodeText = view.findViewById(R.id.textAppVersion) as BaseTextView
-        errorCodeText.text = getString(R.string.errorCode, errorCode)
-        userIdText.text = getString(R.string.userId, userId)
-        versionCodeText.text = getString(R.string.version, versionCode)
-        closeKeyBoard()
-    }*/
 
     override fun hideServerError() {
         dynamicViewHandler?.hide()
