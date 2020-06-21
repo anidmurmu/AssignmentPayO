@@ -1,6 +1,5 @@
 package `in`.example.payo
 
-import `in`.example.data.synSMS
 import `in`.example.ui.base.BaseActivity
 import `in`.example.ui.base.REQUEST_SMS_PERMISSION
 import android.os.Bundle
@@ -12,7 +11,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkAppSyncRequestPermissions()
-        synSMS(this)
     }
 
     override fun onRequestPermissionsResult(

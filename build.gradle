@@ -6,6 +6,7 @@ buildscript {
             kotlinVersion = '1.3.72'
             lifecycleVersion = '2.2.0'
             mpChartVersion = 'v3.1.0'
+            kotlin_version = '1.3.72'
         }
     repositories {
         google()

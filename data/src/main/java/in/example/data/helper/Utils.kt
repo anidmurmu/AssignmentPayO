@@ -1,5 +1,7 @@
-package `in`.example.data
+package `in`.example.data.helper
 
+import `in`.example.data.userdata.SMS
+import `in`.example.domain.model.TransactionalInfo
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
@@ -10,30 +12,8 @@ import androidx.core.content.ContextCompat
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class SMS {
-
-    var customerId: String? = null
-    var time: String? = null
-    var from: String? = null
-    var body: String? = null
-    var smsId: String? = null
-    var syncId: String? = null
-
-    override fun equals(other: Any?): Boolean {
-        return other is SMS && this.time.equals(other.time, true)
-    }
-
-    override fun hashCode(): Int {
-        var result = customerId?.hashCode() ?: 0
-        result = 31 * result + (time?.hashCode() ?: 0)
-        return result
-    }
-
-
-}
-
-fun synSMS(context: Context) {
-    val smsArrayList = ArrayList<`in`.example.data.SMS>()
+fun getTransactionalSMSInfo(context: Context): TransactionalInfo {
+    val smsArrayList = ArrayList<SMS>()
     val permissionCheck =
         ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS)
     var totalSms = 0
@@ -89,6 +69,7 @@ fun synSMS(context: Context) {
             cursor?.close()
         }
     }
+    return TransactionalInfo(income, expenditure)
     Log.d("apple income", income.toString())
     Log.d("apple expenditure", expenditure.toString())
 }
@@ -101,8 +82,7 @@ fun isTransactionalSms(body: String): Boolean {
 }
 
 fun getAmountInString(body: String): String {
-    val p: Pattern =
-        Pattern.compile("(?i)(?:(?:RS|INR|MRP)\\.?\\s?)(\\d+(:?\\,\\d+)?(\\,\\d+)?(\\.\\d{1,2})?)")
+    val p: Pattern = Pattern.compile("(?i)(?:(?:RS|INR|MRP)\\.?\\s?)(\\d+(:?\\,\\d+)?(\\,\\d+)?(\\.\\d{1,2})?)")
     val m: Matcher = p.matcher(body)
     return if (m.find()) {
         m.group()

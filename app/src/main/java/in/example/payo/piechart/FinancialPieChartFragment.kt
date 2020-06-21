@@ -1,5 +1,6 @@
 package `in`.example.payo.piechart
 
+import `in`.example.payo.App
 import `in`.example.payo.R
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.fragment_financial_pie_chart.*
 
 
 class FinancialPieChartFragment : Fragment() {
+    lateinit var viewModel: FinancialPieChartViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_financial_pie_chart, container, false)
@@ -22,19 +25,21 @@ class FinancialPieChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val NoOfEmp = mutableListOf<PieEntry>()
+        viewModel = FinancialPieChartViewModel(App.instance)
+        val transactionInfo = viewModel.getTransactionalInfo()
 
-        NoOfEmp.add(PieEntry(945f, 0f))
-        NoOfEmp.add(PieEntry(1040f, 1f))
-        NoOfEmp.add(PieEntry(1133f, 2f))
-        NoOfEmp.add(PieEntry(1240f, 3f))
-        NoOfEmp.add(PieEntry(1369f, 4f))
-        NoOfEmp.add(PieEntry(1487f, 5f))
-        NoOfEmp.add(PieEntry(1501f, 6f))
-        NoOfEmp.add(PieEntry(1645f, 7f))
-        NoOfEmp.add(PieEntry(1578f, 8f))
-        NoOfEmp.add(PieEntry(1695f, 9f))
-        val dataSet = PieDataSet(NoOfEmp, "Number Of Employees")
+        val income = transactionInfo.income.toFloat()
+        val expenditure = transactionInfo.expenditure.toFloat()
+
+        val transaction = income + expenditure
+
+        val transactionList = mutableListOf<PieEntry>()
+        transactionList.apply {
+            add(PieEntry(3000f, 0f))
+            add(PieEntry(expenditure, 1f))
+        }
+
+        val dataSet = PieDataSet(transactionList, "Transaction")
 
         val year = mutableListOf<Any>()
 
