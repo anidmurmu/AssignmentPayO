@@ -6,8 +6,6 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.DisplayMetrics
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +20,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     private var dynamicViewHandler: DynamicViewHandler? = null
 
-    //protected var observerViews: List<ObserverView>? = null
-
     override fun closeKeyBoard() {
         if (currentFocus != null && currentFocus?.windowToken != null) {
             val inputManager = getSystemService(Context
@@ -35,7 +31,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     fun showToast(msg: String?) {
         msg?.also {
-            //window?.decorView?.showToast(it)
         }
     }
 
@@ -67,11 +62,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun onStop() {
         super.onStop()
         isViewInteractive = false
-        /*observerViews?.let {
-            for (observer in it) {
-                observer.onStop()
-            }
-        }*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

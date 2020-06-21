@@ -1,4 +1,4 @@
-package `in`.example.data
+package `in`.example.data.transaction
 
 import `in`.example.data.helper.getTransactionalSMSInfo
 import `in`.example.domain.model.TransactionalInfo

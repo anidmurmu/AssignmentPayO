@@ -11,10 +11,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 
-/**
- * Created by manikanta on 04/01/18.
- */
-
 public class DynamicViewHandler {
 
     private View visibleView;
