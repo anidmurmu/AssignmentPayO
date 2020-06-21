@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  android:background="#ffffff"
+    android:clickable="true"
+    android:focusable="true"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="48dp"
+      android:layout_marginEnd="24dp"
+        android:layout_marginBottom="48dp"
+      android:background="#ffffff"
+      android:elevation="8dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/tvInternetErrorTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal"
+        android:text="Hello"
+        android:textColor="@color/_1a2a78"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+      <View
+        android:id="@+id/div"
+        android:layout_marginTop="16dp"
+        android:layout_width="34dp"
+        android:layout_height="1dp"
+        android:background="@color/_1a2a78"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvInternetErrorTitle" />
+
+      <TextView
+        android:id="@+id/tvInternetErrorSubInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:paddingBottom="12dp"
+        android:textColor="@color/_c92526"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/div"
+        android:text="@string/looks_like_you_are_not_connected_to_internet" />
+
+
+      <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivInternetError"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInternetErrorSubInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_no_internet"/>
+
+      <TextView
+        android:id="@+id/tvInternetErrorFooter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:paddingBottom="12dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivInternetError"
+        android:text="@string/internet_error_description" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="129dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+</FrameLayout>

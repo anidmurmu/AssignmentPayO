@@ -4,7 +4,7 @@
   android:id="@+id/navigation_main_graph"
   app:startDestination="@id/splashFragment">
   <fragment android:id="@+id/splashFragment"
-    android:name="in.loanfront.android.mvvm.SplashFragment"
-    android:label="SplashFragment">
+    android:name="in.example.payo.piechart.FinancialPieChartFragment"
+    android:label="FinancialPieChartFragment">
   </fragment>
 </navigation>
